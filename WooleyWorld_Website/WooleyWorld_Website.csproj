@@ -115,6 +115,8 @@
     <Content Include="App_Data\WooleyWorldDB_log.ldf">
       <DependentUpon>WooleyWorldDB.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\AboutUs\grant.jpg" />
+    <Content Include="Content\AboutUs\tristan.jpg" />
     <Content Include="Content\AdminPanel\bg.webm" />
     <Content Include="Content\cia.jpg" />
     <Content Include="Content\CMS\bg.jpg" />
@@ -124,8 +126,10 @@
     <Content Include="Content\deviantartIcon.png" />
     <Content Include="Content\facebookIcon.png" />
     <Content Include="Content\logo.png" />
+    <Content Include="Content\monsterbg.webm" />
     <Content Include="Content\Scripts\AdminPanelScripts.js" />
     <Content Include="Content\Scripts\CMSScripts.js" />
+    <Content Include="Content\Styles\AboutUsStyles.css" />
     <Content Include="Content\Styles\AdminPanelStyles.css" />
     <Content Include="Content\Styles\CMSStyles.css" />
     <Content Include="Content\Styles\HomeStyles.css" />
@@ -140,6 +144,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\API\AdministratorsController.cs" />
     <Compile Include="Controllers\API\AnimationsController.cs" />
@@ -147,6 +152,7 @@
     <Compile Include="Controllers\API\FeaturesController.cs" />
     <Compile Include="Controllers\API\SeriesController.cs" />
     <Compile Include="Controllers\API\ThumbsController.cs" />
+    <Compile Include="Controllers\ArtworksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -172,6 +178,12 @@
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Views\AboutUs\AboutUs.cshtml" />
+    <Content Include="Views\Artworks\Create.cshtml" />
+    <Content Include="Views\Artworks\Delete.cshtml" />
+    <Content Include="Views\Artworks\Details.cshtml" />
+    <Content Include="Views\Artworks\Edit.cshtml" />
+    <Content Include="Views\Artworks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
