@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="~/Content/logo.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="~/Content/Styles/_LayoutPageBannerStyles.css" rel="stylesheet" />
+    @RenderSection("head")
+</head>
+
+<body>
+    <header>
+        <a id="bannerLogo" href="~/Home" title="Home"><img src="~/Content/logo.png" /></a>
+        <div id="bannerRightSection">
+            <h1 id="bannerTitle">WooleyWorld</h1>
+            <div id="bannerBottom">
+                <nav>
+                    <a href="">Animations</a>
+                    <a href="">Gallery</a>
+                    <a href="">About Us</a>
+                </nav>
+                <div id="bannerWhereToFindUs">
+                    <p>Where to find us:</p>
+                    <div id="bannerIcons">
+                        <a href="https://wooleyworldhq.deviantart.com/" title="DeviantArt"><img src="~/Content/deviantartIcon.png" /></a>
+                        <a href="https://www.facebook.com/WooleyWorld/" title="Facebook"><img src="~/Content/facebookIcon.png" /></a>
+                        <a href="https://twitter.com/WooleyWorld" title="Twitter"><img src="~/Content/twitterIcon.png" /></a>
+                        <a href="https://www.youtube.com/user/WooleyWorld" title="Youtube"><img src="~/Content/youtubeIcon.png" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+</body>
+</html>

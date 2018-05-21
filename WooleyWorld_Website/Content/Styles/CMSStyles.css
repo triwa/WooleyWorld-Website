@@ -1,0 +1,317 @@
+﻿/*
+    page
+*/
+body {
+    background-image: url(../../Content/CMS/bg.jpg);
+    background-size: cover;
+}
+
+/*
+   Main sections Layout
+*/
+main {
+    display: flex;
+    min-width: 951px;
+    height: calc(100vh - 120px);
+    overflow: hidden;
+}
+
+#middleColumn {
+    min-width: 400px;
+}
+
+#animations, #artwork {
+    margin: 0 10px;
+    width: 0;
+    flex-grow: 1;
+}
+
+#series, #GIF, #Sketch {
+    margin-top: 10px;
+}
+
+.content {
+    padding: 5px;
+    background-color: rgba(0,0,0,.5);
+}
+
+#artwork .content {
+    padding: 10px;
+}
+
+#Still .content, #Sketch .content, #GIF .content {
+    padding: 5px;
+    background-color: rgba(255,255,255,.2);
+}
+
+#animations, #middleColumn, #artwork {
+    margin-top: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+/*
+    section headers
+*/
+.sectionHeader {
+    display: flex;
+    background-color: rgba(0,0,0,.7);
+    color: white;
+}
+
+.sectionHeader label {
+    cursor: pointer;
+}
+
+.sectionHeader label {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.collapseButton {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.newIcon {
+    width: 48px;
+    text-align: center;
+}
+
+.newIcon:hover {
+    background-color: grey;
+}
+
+#features .sectionHeader span {
+    font-size: 15px;
+    float: right;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+/*
+    Transition for collapsing a section
+*/
+.content {
+    transform-origin: top;
+    transition: transform .25s;
+}
+
+.content.collapsed {
+    transform: scaleY(0);
+}
+
+/*
+    Tiles
+*/
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#artwork .content {
+    display: block;
+}
+
+#Still .content, #Sketch .content, #GIF .content {
+    display: flex;
+}
+
+.tile {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    position: relative;
+    margin: 5px 5px;
+    cursor: pointer;
+}
+
+.tile label {
+    position: absolute;
+    background-color: black;
+    background-color: rgba(0,0,0,.6);
+    color: white;
+    width: 100%;
+    pointer-events: none;
+}
+
+#animations .tile img {
+    max-height: 113px;
+}
+
+#artwork .tile img {
+    max-height: 200px;
+}
+
+/*
+    side panels
+*/
+
+.sidePanel {
+    position: absolute;
+    width: 400px;
+    background-color: white;
+    height: calc(100vh - 120px);
+    flex-flow: column;
+    overflow-y: auto;
+    z-index: 2;
+    background-image: url(/Content/CMS/bg2.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.sidePanel .sectionHeader {
+    background-color: rgba(0,0,0,.8);
+    text-align: center;
+    min-width:initial;
+}
+
+.sidePanel .sectionHeader .panelTitle {
+    cursor: default;
+    white-space: nowrap;
+    padding: 0 10px;
+}
+
+.sidePanel .sectionHeader .closeIcon {
+    margin-left:auto;
+}
+
+.sidePanel form {
+    display: flex;
+    flex-flow: column;
+    padding: 0 10px;
+}
+
+.sidePanel form > * {
+    margin: 5px 0;
+    font-size: 20px;
+    background-color: rgba(255,255,255,.8);
+    border: 1px solid black;
+}
+
+.sidePanel form > label{
+    max-width: 90%;
+    align-self: center;
+}
+
+.sidePanel form > label img {
+    max-width: 100%;
+}
+
+.sidePanel form > .foot {
+    background-color: rgba(0,0,0,.8);
+    padding: 10px;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidePanel form > .foot button {
+    flex-grow: 1;
+    height: 50px;
+    margin: 0 50px;
+}
+
+.sidePanel form img, .sidePanel form button{
+    cursor:pointer;
+}
+
+.closeIcon {
+    width: 48px;
+}
+
+.closeIcon:hover {
+    background-color: grey;
+}
+
+label.errorLabel {
+    color: red;
+    background-color: rgba(0,0,0,.8);
+}
+
+/*
+    Animation panel specific
+*/
+#animationPanel {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .25s;
+}
+
+#animationPanel.open {
+    transform: scaleX(1);
+}
+
+/*
+    Artwork panel specific
+*/
+#artworkPanel{
+    right:0px;
+}
+
+#artworkPanel .tags {
+    background-color: transparent;
+    border: none;
+}
+
+#artworkPanel .tagInput{
+    padding-bottom: 5px;
+    display:flex;
+    justify-content:center;
+}
+
+#artworkPanel .tagInput input {
+    font-size: 20px;
+    background-color: rgba(255,255,255,.8);
+    border: 1px solid black;
+}
+
+#artworkPanel .tags img {
+    height: 30px;
+}
+
+#artworkPanel {
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .25s;
+}
+
+#artworkPanel.open {
+    transform: scaleX(1);
+}
+
+/*
+    Cover
+*/
+#cover {
+    position: absolute;
+    height: calc(100vh - 120px);
+    width: 100%;
+    z-index: 1;
+    background-color: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+}
+
+#cover.cover {
+    opacity: .8;
+    pointer-events: all;
+}
+
+/*
+    Footer
+*/
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+footer a {
+    color: grey;
+}

@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/_LayoutPageBanner.cshtml";
+}
+
+@section head{
+    <title>Admin Panel</title>
+    <link href="~/Content/Styles/AdminPanelStyles.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/AdminPanelScripts.js"></script>
+}
+
+<main>
+    <div id="wrapper">
+        <h2>Admin List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Remove Admin</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <form onsubmit="addAdmin(this); return false">
+            <h4>Add Admin</h4>
+            <input name="newUsername" placeholder="Username" autocomplete="off" required/>
+            <input name="newPassword" type="password" placeholder="Password" autocomplete="off" required/>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <a href="~/Admin/CMS">CMS</a>
+</footer>
+
+<video autoplay loop src="~/Content/AdminPanel/bg.webm"></video>

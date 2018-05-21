@@ -1,0 +1,128 @@
+﻿@{
+    Layout = "~/Views/_LayoutPageBanner.cshtml";
+}
+
+@section head{
+    <title>CMS</title>
+    <link href="~/Content/Styles/CMSStyles.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/CMSScripts.js"></script>
+}
+
+<main>
+    <section id="animations">
+        <div class="sectionHeader">
+            <label title="Collapse Section" class="collapseButton">Animations</label>
+            <label class="newIcon" title="Add New Animation" onclick="OpenAnimationPanel('new')">+</label>
+        </div>
+        <div class="content"></div>
+    </section>
+
+    <div id="middleColumn">
+        <section id="features">
+            <div class="sectionHeader">
+                <label title="Collapse Section" class="collapseButton">Features<span>Drag and drop<br />animations</span></label>
+            </div>
+            <div class="content"></div>
+        </section>
+
+        <section id="series">
+            <div class="sectionHeader">
+                <label title="Collapse Section" class="collapseButton">Series</label>
+                <label class="newIcon" title="Add New Series">+</label>
+            </div>
+            <div class="content"></div>
+        </section>
+    </div>
+
+    <section id="artwork">
+        <div class="sectionHeader">
+            <label title="Collapse Section" class="collapseButton">Artwork</label>
+        </div>
+        <div class="content">
+            <section id="Still">
+                <div class="sectionHeader">
+                    <label title="Collapse Section" class="collapseButton">Stills</label>
+                    <label class="newIcon" title="Add New Still" onclick="OpenArtworkPanel('new', 'Still')">+</label>
+                </div>
+                <div class="content"></div>
+            </section>
+
+            <section id="GIF">
+                <div class="sectionHeader">
+                    <label title="Collapse Section" class="collapseButton">GIFs</label>
+                    <label class="newIcon" title="Add New GIF" onclick="OpenArtworkPanel('new', 'GIF')">+</label>
+                </div>
+                <div class="content"></div>
+            </section>
+
+            <section id="Sketch">
+                <div class="sectionHeader">
+                    <label title="Collapse Section" class="collapseButton">Sketches</label>
+                    <label class="newIcon" title="Add New Sketch" onclick="OpenArtworkPanel('new', 'Sketch')">+</label>
+                </div>
+                <div class="content"></div>
+            </section>
+        </div>
+    </section>
+
+    <!--
+    Side panels
+    -->
+    <div id="cover"></div>
+
+    <section id="animationPanel" class="sidePanel">
+        <div class="sectionHeader">
+            <label class="sectionTitle panelTitle">Edit Animation</label>
+            <label class="closeIcon" title="Close panel" onclick="CloseAnimationPanel()">X</label>
+        </div>
+        <div class="panelBody">
+            <form id="animationForm" name="animationForm" autocomplete="off">
+                <input name="id" hidden />
+                <input name="title" placeholder="Title" required />
+                <input name="videoLink" placeholder="Video Link" required />
+                <label for="thumbnail"><img src="~/Content/CMS/thumbnail.png" title="Choose Thumbnail" /></label>
+                <input hidden name="thumbnail" id="thumbnail" type="file" onchange="updateAnimationThumbnail()" />
+                <textarea name="description" placeholder="Description" rows="5" required></textarea>
+                <label id="AnimationError" class="errorLabel"></label>
+                <div class="foot">
+                    <button type="submit">Save</button>
+                    <img class="deleteButton" title="Delete Animation" src="~/Content/CMS/delete.png" onclick="DeleteAnimation()" />
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="artworkPanel" class="sidePanel">
+        <div class="sectionHeader">
+            <label class="sectionTitle panelTitle">Edit Artwork</label>
+            <label class="closeIcon" title="Close panel" onclick="CloseArtworkPanel()">X</label>
+        </div>
+        <div class="panelBody">
+            <form id="artworkForm" name="artworkForm" autocomplete="off">
+                <input name="id" hidden />
+                <input name="title" placeholder="Title" required />
+                <input hidden name="type" required />
+                <label for="artworkImg"><img src="~/Content/CMS/artwork.png" title="Choose Artwork" /></label>
+                <input hidden name="artwork" id="artworkImg" type="file" onchange="updateArtworkThumbnail()" />
+                <textarea name="description" placeholder="Description" rows="5" required></textarea>
+                <div class="tags">
+                    <div class="tagInput">
+                        <input name="tag" placeholder="tag" onfocus="generateTagInput()"/>
+                        <img title="Delete tag" src="../Content/CMS/delete.png" onclick="removeTagInput(this)"/>
+                    </div>
+                </div>
+                <label id="ArtworkError" class="errorLabel"></label>
+                <div class="foot">
+                    <button type="submit">Save</button>
+                    <img class="deleteButton" title="Delete Artwork" src="~/Content/CMS/delete.png" onclick="DeleteArtwork()" />
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+</main>
+
+<footer>
+    <a href="~/Admin/AdminPanel">Admin Panel</a>
+</footer>
