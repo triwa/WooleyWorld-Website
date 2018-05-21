@@ -10,14 +10,13 @@
 /*
     Banner Styles
 */
-header {
+#banner {
     display: flex;
     box-shadow: black 0 0 10px 2px;
     min-width: 510px;
-    height: 120px;
     background-image: url(../cia.jpg);
     background-size: cover;
-    background-repeat: no-repeat;
+    position:relative;
 }
 
 #bannerLogo, #bannerLogo img {
@@ -90,10 +89,14 @@ nav a:hover {
 /*
     Smart phone specific
 */
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
     header {
         background-position: 0 -70px;
         height:auto;
+    }
+
+    body {
+        min-width: 510px;
     }
 
     nav {

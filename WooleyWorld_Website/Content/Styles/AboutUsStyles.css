@@ -1,0 +1,55 @@
+﻿main {
+    margin: 0 15%;
+    padding: 2%;
+    background-color: rgba(255,255,255,.9);
+}
+
+#pageTitle {
+    text-align: center;
+}
+
+article {
+    margin-top: 25px;
+    display: flex;
+}
+
+article img {
+    height: 300px;
+}
+
+article header {
+    display: flex;
+}
+
+address {
+    margin-left: 10px;
+}
+
+article section {
+    margin-left: 20px;
+    flex: 1;
+}
+
+video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    z-index: -1;
+}
+
+@media (max-width: 768px) {
+    main {
+        margin: 0;
+    }
+
+    article {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    article header {
+        justify-content: center;
+    }
+}
