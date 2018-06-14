@@ -14,7 +14,7 @@ namespace WooleyWorld_Website.Controllers.API
         {
             AnimationDBContext animations = new AnimationDBContext();
             return Json(animations.Animation
-                    .OrderByDescending(i=>i.Anim_Date)
+                    .OrderByDescending(i => i.Anim_Date)
                     .Select(i => new { i.Anim_ID, i.Anim_Title, i.Anim_Thumbnail }));
         }
 
@@ -23,9 +23,18 @@ namespace WooleyWorld_Website.Controllers.API
         public IHttpActionResult GetArtworks()
         {
             ArtworkDBContext artworks = new ArtworkDBContext();
+
             return Json(artworks.Artwork
                     .OrderByDescending(i => i.Art_Date)
-                    .Select(i => new { i.Art_ID, i.Art_Title, i.Art_Thumbnail, i.Art_Type }));
+                    .Select(i => new
+                    {
+                        i.Art_ID,
+                        i.Art_Title,
+                        i.Art_Thumbnail,
+                        i.Art_Type,
+                        i.Art_Date,
+                        Art_Tags = i.Artwork_Tag.Select(t => new { t.Tag_ID, t.Tag.Tag_Title })
+                    }));
         }
 
         //returns ID, title, and thumbnail of all animations. Ordered descending by date

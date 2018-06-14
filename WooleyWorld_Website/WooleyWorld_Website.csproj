@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +36,19 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES2017</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -118,6 +133,20 @@
     <Content Include="Content\AboutUs\grant.jpg" />
     <Content Include="Content\AboutUs\tristan.jpg" />
     <Content Include="Content\AdminPanel\bg.webm" />
+    <Content Include="Content\Artworks\asre - 3-29-2018.jpg" />
+    <Content Include="Content\Artworks\flying.jpg" />
+    <Content Include="Content\Artworks\leona.jpg" />
+    <Content Include="Content\Artworks\Target Locked - 3-27-2018.jpg" />
+    <Content Include="Content\Artworks\Thumbnails\asre_thumb - 3-29-2018.jpg" />
+    <Content Include="Content\Artworks\Thumbnails\flyingthumb.jpg" />
+    <Content Include="Content\Artworks\Thumbnails\leonathumb.jpg" />
+    <Content Include="Content\Artworks\Thumbnails\Target Locked_thumb - 3-27-2018.jpg" />
+    <Content Include="Content\Artworks\Thumbnails\tracerthumb.jpg" />
+    <Content Include="Content\Artworks\Thumbnails\WE%27RE GETTING THERE_thumb - 3-27-2018.png" />
+    <Content Include="Content\Artworks\Thumbnails\yiff in hell_thumb - 3-28-2018.png" />
+    <Content Include="Content\Artworks\tracer.gif" />
+    <Content Include="Content\Artworks\WE%27RE GETTING THERE - 3-27-2018.gif" />
+    <Content Include="Content\Artworks\yiff in hell - 3-28-2018.png" />
     <Content Include="Content\cia.jpg" />
     <Content Include="Content\CMS\bg.jpg" />
     <Content Include="Content\CMS\bg2.jpg" />
@@ -125,13 +154,16 @@
     <Content Include="Content\CMS\thumbnail.png" />
     <Content Include="Content\deviantartIcon.png" />
     <Content Include="Content\facebookIcon.png" />
+    <Content Include="Content\kannabg.gif" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\monsterbg.webm" />
-    <Content Include="Content\Scripts\AdminPanelScripts.js" />
-    <Content Include="Content\Scripts\CMSScripts.js" />
+    <TypeScriptCompile Include="Content\Scripts\AdminPanelScripts.ts" />
+    <TypeScriptCompile Include="Content\Scripts\CMSScripts.ts" />
+    <TypeScriptCompile Include="Content\Scripts\Globals.ts" />
     <Content Include="Content\Styles\AboutUsStyles.css" />
     <Content Include="Content\Styles\AdminPanelStyles.css" />
     <Content Include="Content\Styles\CMSStyles.css" />
+    <Content Include="Content\Styles\GalleryStyles.css" />
     <Content Include="Content\Styles\HomeStyles.css" />
     <Content Include="Content\twitterIcon.png" />
     <Content Include="Content\youtubeIcon.png" />
@@ -152,7 +184,7 @@
     <Compile Include="Controllers\API\FeaturesController.cs" />
     <Compile Include="Controllers\API\SeriesController.cs" />
     <Compile Include="Controllers\API\ThumbsController.cs" />
-    <Compile Include="Controllers\ArtworksController.cs" />
+    <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,11 +211,7 @@
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Views\AboutUs\AboutUs.cshtml" />
-    <Content Include="Views\Artworks\Create.cshtml" />
-    <Content Include="Views\Artworks\Delete.cshtml" />
-    <Content Include="Views\Artworks\Details.cshtml" />
-    <Content Include="Views\Artworks\Edit.cshtml" />
-    <Content Include="Views\Artworks\Index.cshtml" />
+    <Content Include="Views\Gallery\Gallery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -193,14 +221,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Animations\Thumbnails\" />
-    <Folder Include="Content\Artwork\Thumbnails\" />
     <Folder Include="Content\Series\Thumbnails\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Content\Scripts\GalleryScripts.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

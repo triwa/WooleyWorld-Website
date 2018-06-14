@@ -10,13 +10,18 @@
 /*
     Banner Styles
 */
+
+body {
+    min-width: 510px;
+}
+
 #banner {
     display: flex;
     box-shadow: black 0 0 10px 2px;
     min-width: 510px;
     background-image: url(../cia.jpg);
     background-size: cover;
-    position:relative;
+    position: relative;
 }
 
 #bannerLogo, #bannerLogo img {
@@ -43,14 +48,14 @@
     background-color: rgba(0, 0, 0, 0.58);
 }
 
-nav {
+#banner nav {
     flex-grow: 1;
     display: flex;
     align-items: stretch;
     justify-content: space-around;
 }
 
-nav a {
+#banner nav a {
     color: inherit;
     font-size: 20px;
     font-weight: bold;
@@ -61,7 +66,7 @@ nav a {
     justify-content: center;
 }
 
-nav a:hover {
+#banner nav a:hover {
     box-shadow: inset #9a9a9a 0 0 10px 3px;
 }
 
@@ -90,20 +95,16 @@ nav a:hover {
     Smart phone specific
 */
 @media (max-width: 768px) {
-    header {
+    #banner header {
         background-position: 0 -70px;
-        height:auto;
+        height: auto;
     }
 
-    body {
-        min-width: 510px;
-    }
-
-    nav {
+    #banner nav {
         flex-direction: column;
     }
 
-    nav a {
+    #banner nav a {
         padding: 20px 0;
     }
 

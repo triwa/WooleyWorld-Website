@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/_LayoutPageBanner.cshtml";
+}
+
+@section head{
+    <title>Gallery</title>
+    <link href="~/Content/Styles/GalleryStyles.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/Globals.js"></script>
+    <script src="~/Content/Scripts/GalleryScripts.js"></script>
+}
+
+<main>
+    <h1>Galleria De Wool</h1>
+    <button id="viewModeToggle">Switch to Tag View</button>
+
+    <section id="categoryOptions">
+        <button onclick="showType(this)" class="currentMode"><h2>All</h2></button>
+        <button onclick="showType(this)"><h2>Still</h2></button>
+        <button onclick="showType(this)"><h2>GIF</h2></button>
+        <button onclick="showType(this)"><h2>Sketch</h2></button>
+    </section>
+
+    <input id="searchInput" placeholder="Search..." onkeyup="search(this.value)" />
+
+    <label id="sortLabel">Sort by:</label>
+    <select id="sortModeSelect" onchange="sort(this.value)">
+        <option value="Newest">Newest</option>
+        <option value="Oldest">Oldest</option>
+    </select>
+
+    <section id="artworks"></section>
+    <section id="tags" class="offMode"></section>
+</main>
+
+<section id="imageViewer" class="hidden">
+    <div id="viewContainer">
+        <div id="titleBar">
+            <h1 id="title"></h1>
+            <button id="closeButton" onclick="closeViewer()">X</button>
+        </div>
+        <div id="artworkContainer">
+            <img id="artwork" src="" />
+        </div>
+        <section id="details">
+            <div id="date_sharing">
+                <span id="uploadDate"></span>
+                <div id="socialMedia">
+                    <img src="~/Content/facebookIcon.png" />
+                    <img src="~/Content/twitterIcon.png" />
+                </div>
+            </div>
+            <p id="description"></p>
+        </section>
+    </div>
+    <div id="overlay" onclick="closeViewer()"></div>
+</section>
