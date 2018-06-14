@@ -1,0 +1,280 @@
+﻿body {
+    background-image: url(../kannabg.gif);
+    background-size: 200px;
+}
+
+main {
+    margin: 0 15%;
+    padding: 2%;
+    background-color: rgba(255,255,255,.9);
+}
+
+h1 {
+    text-align: center;
+    font-size: 300%;
+}
+
+/*
+    View Mode button
+*/
+
+#viewModeToggle {
+    display: block;
+    margin: 10px auto;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#viewModeToggle:hover {
+    color: grey;
+}
+
+/*
+    category option buttons
+*/
+#categoryOptions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1%;
+}
+
+#categoryOptions button {
+    margin: 0 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 120%;
+    transition: font-size .5s;
+}
+
+#categoryOptions button:hover {
+    color: grey;
+}
+
+#categoryOptions button:first-child {
+    margin: 0 50%;
+}
+
+#categoryOptions .currentMode {
+    font-size: 180%;
+}
+
+/*
+    search box and sorting
+*/
+
+#searchInput {
+    font-size: 120%;
+}
+
+#sortLabel {
+    background-color: transparent;
+    border: none;
+    font-size: 100%;
+    margin-left: 5px;
+    border-radius: 50px;
+    outline: none;
+}
+
+#sortButton:hover {
+    background-color: rgba(0,0,0,.3);
+}
+
+#sortModeSelect {
+    font-size: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/*
+    artworks section
+*/
+
+#artworks {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+article {
+    margin: 2px 2px 0 0;
+    display: flex;
+    height: 100%;
+    max-height: 300px;
+    position: relative;
+    max-width: 100%;
+}
+
+article .title {
+    position: absolute;
+    color: white;
+    background-color: rgba(0,0,0,.8);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+article .title:hover {
+    opacity: 1;
+}
+
+#artworks img {
+    max-width: 100%
+}
+
+/*
+    Tags section
+*/
+#tags {
+    margin-top: 20px;
+}
+
+.tagListing h3 {
+    cursor: pointer;
+    margin-top: 10px;
+    display:flex;
+}
+
+.tagListing h3:after{
+    content:"";
+    align-self:center;
+    margin-left:10px;
+    background-color:rgba(0,0,0,.3);
+    height:1px;
+    flex-grow:1;
+}
+
+.tagListing section {
+    display: flex;
+    flex-wrap: wrap;
+    transition: transform .1s;
+    transform-origin: top;
+}
+
+.tagListing section.collapsed {
+    transform: scaleY(0);
+}
+
+/*
+    Image Viewer
+*/
+#imageViewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#imageViewer #overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    cursor: pointer;
+}
+
+#imageViewer #viewContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    background-color: rgba(255,255,255,.8);
+    box-shadow: 0 0 20px black;
+    max-height: 90%;
+    max-width: 90%;
+    padding-bottom: 10px;
+    overflow-y: auto;
+}
+
+#imageViewer #titleBar {
+    margin-left: 20px;
+    flex-shrink: 0;
+    display: flex;
+}
+
+#imageViewer #title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+#imageViewer #closeButton {
+    font-weight: bold;
+    font-size: 250%;
+    padding: 0 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#imageViewer #closeButton:hover {
+    background-color: white;
+}
+
+#imageViewer #artworkContainer {
+    text-align: center;
+    margin: 0 20px;
+}
+
+#imageViewer #artworkContainer img {
+    max-width: 100%;
+}
+
+#imageViewer #date_sharing {
+    display: flex;
+}
+
+#imageViewer #uploadDate {
+    font-weight: bold;
+    flex-grow: 1;
+    text-align: center;
+    align-self: center;
+}
+
+#imageViewer #socialMedia img {
+    height: 30px;
+}
+
+#imageViewer #details {
+    margin: 0 20px;
+}
+
+/*
+    Utility Class
+*/
+.searchFiltered, .typeFiltered, .offMode, .hidden {
+    display: none !important;
+}
+
+.noScroll {
+    overflow: hidden;
+}
+
+/*
+    Smartphone Tweaks
+*/
+@media (max-device-width : 480px) {
+    main {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #imageViewer #viewContainer {
+        min-width: 100%;
+    }
+}

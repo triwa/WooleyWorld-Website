@@ -5,6 +5,7 @@
 @section head{
     <title>CMS</title>
     <link href="~/Content/Styles/CMSStyles.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/Globals.js"></script>
     <script src="~/Content/Scripts/CMSScripts.js"></script>
 }
 
@@ -107,8 +108,8 @@
                 <textarea name="description" placeholder="Description" rows="5" required></textarea>
                 <div class="tags">
                     <div class="tagInput">
-                        <input name="tag" placeholder="tag" onfocus="generateTagInput()"/>
-                        <img title="Delete tag" src="../Content/CMS/delete.png" onclick="removeTagInput(this)"/>
+                        <input name="tag" placeholder="tag" onfocus="generateTagInput()" />
+                        <img title="Delete tag" src="../Content/CMS/delete.png" onclick="removeTagInput(this)" />
                     </div>
                 </div>
                 <label id="ArtworkError" class="errorLabel"></label>

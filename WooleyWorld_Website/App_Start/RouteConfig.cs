@@ -12,8 +12,14 @@ namespace WooleyWorld_Website
             routes.MapRoute(
                 name: "AboutUs",
                 url: "AboutUs",
-                defaults: new { controller = "AboutUs", action = "AboutUs" }
+                defaults: new { controller = "AboutUs", action = "AboutUs"}
             );
+
+            routes.MapRoute(
+                 name: "Gallery",
+                 url: "Gallery/{action}/{id}",
+                 defaults: new { controller = "Gallery", action = "Gallery", id = UrlParameter.Optional }
+             );
 
             routes.MapRoute(
                 name: "Default",

@@ -5,6 +5,7 @@
 @section head{
     <title>Admin Panel</title>
     <link href="~/Content/Styles/AdminPanelStyles.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/Globals.js"></script>
     <script src="~/Content/Scripts/AdminPanelScripts.js"></script>
 }
 
@@ -22,8 +23,8 @@
         </table>
         <form onsubmit="addAdmin(this); return false">
             <h4>Add Admin</h4>
-            <input name="newUsername" placeholder="Username" autocomplete="off" required/>
-            <input name="newPassword" type="password" placeholder="Password" autocomplete="off" required/>
+            <input name="newUsername" placeholder="Username" autocomplete="off" required />
+            <input name="newPassword" type="password" placeholder="Password" autocomplete="off" required />
             <button type="submit">Add</button>
         </form>
     </div>
