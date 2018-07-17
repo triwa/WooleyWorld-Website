@@ -13,8 +13,25 @@ namespace WooleyWorld_Website.Controllers.API
         public IHttpActionResult Get()
         {
             return Json(features.Feature
-                    .Select(i => new { i.Anim_ID, i.Anim_Title, i.Anim_Thumbnail, i.Feature_Order })
+                    .Select(i => new { i.Anim_ID, i.Animation.Anim_Title, i.Animation.Anim_Thumbnail, i.Feature_Order })
                     .OrderBy(i => i.Feature_Order));
+        }
+
+        // PUT: api/features
+        //updates the order of features or adds new ones
+        [Authorize]
+        public IHttpActionResult PutFeatures([FromBody]Feature[] featuresInput)
+        {
+            features.Database.ExecuteSqlCommand("delete from feature");
+
+            foreach (Feature feature in featuresInput)
+            {
+                features.Feature.Add(feature);
+            }
+
+            features.SaveChanges();
+
+            return Ok();
         }
     }
 }

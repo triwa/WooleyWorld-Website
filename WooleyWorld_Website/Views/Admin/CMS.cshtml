@@ -23,7 +23,7 @@
             <div class="sectionHeader">
                 <label title="Collapse Section" class="collapseButton">Features<span>Drag and drop<br />animations</span></label>
             </div>
-            <div class="content"></div>
+            <div class="content" ondragover="dragOverFeatures(event)" ondrop="dropToFeatures(event)"></div>
         </section>
 
         <section id="series">
@@ -69,7 +69,7 @@
     <!--
     Side panels
     -->
-    <div id="cover"></div>
+    <div id="cover" ondragover="dragOverCover(event)" ondrop="dropToCover(event)"></div>
 
     <section id="animationPanel" class="sidePanel">
         <div class="sectionHeader">
@@ -120,8 +120,6 @@
             </form>
         </div>
     </section>
-
-
 </main>
 
 <footer>

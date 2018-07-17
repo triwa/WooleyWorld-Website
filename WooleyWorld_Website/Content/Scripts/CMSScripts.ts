@@ -3,7 +3,7 @@
 //initialize page
 document.onreadystatechange = function () {
     if ( this.readyState === "complete" ) {
-        CollapsePanelsBind();
+        CollapseSectionsBind();
         GetAnimations();
         GetFeatures();
         GetSeries();
@@ -15,14 +15,8 @@ document.onreadystatechange = function () {
     }
 };
 
-/*
-
-Main Sections
-
-*/
-
-//binds click event to toggle between collpased and expanded panels
-function CollapsePanelsBind() {
+//binds click event to toggle between collpased and expanded sections
+function CollapseSectionsBind() {
     document.querySelectorAll( ".collapseButton" ).forEach( i => i.addEventListener( "click", function ( event ) {
         this.parentElement.nextElementSibling.removeAttribute( "style" );
         this.parentElement.nextElementSibling.clientHeight;
@@ -35,6 +29,13 @@ function CollapsePanelsBind() {
         }
     } ) );
 }
+
+
+/*
+
+Main Sections
+
+*/
 
 //fills the animations section
 function GetAnimations() {
@@ -50,7 +51,10 @@ function GetAnimations() {
         for ( let i = 0; i < response.length; i++ ) {
             document.querySelector( "#animations .content" ).insertAdjacentHTML( "beforeend", `
                 <div class="tile" title="Edit Animation" data-Anim_ID="` + response[i].Anim_ID + `" onclick="OpenAnimationPanel('edit',this)">
-                    <img src="../Content/Animations/Thumbnails/` + response[i].Anim_Thumbnail + `" />
+                    <img src="../Content/Animations/Thumbnails/` + response[i].Anim_Thumbnail + `"
+                        ondragstart="dragStart(event)"
+                        ondragend="dragEnd(event)"
+                    />
                     <label>` + response[i].Anim_Title + `</label>
                 </div >
             `);
@@ -72,7 +76,10 @@ function GetFeatures() {
         for ( let i = 0; i < response.length; i++ ) {
             document.querySelector( "#features .content" ).insertAdjacentHTML( "beforeend", `
                 <div class="tile" title="Edit Animation" data-Anim_ID="` + response[i].Anim_ID + `" data-Feature_Order="` + response[i].Feature_Order + `">
-                    <img src="../Content/Animations/Thumbnails/` + response[i].Anim_Thumbnail + `" />
+                    <img src="../Content/Animations/Thumbnails/` + response[i].Anim_Thumbnail + `" 
+                        ondragstart="dragStart(event)" 
+                        ondragend="dragEnd(event)"
+                    />
                     <label>` + response[i].Anim_Title + `</label>
                 </div >
             `);
@@ -133,7 +140,7 @@ Side panels
 
 //toggles the cover and opens/closes the target panel
 function SlidePanel( target ) {
-    document.querySelector( "#cover" ).classList.toggle( "cover" );
+    toggleCover();
     document.querySelector( "#" + target ).classList.toggle( "open" );
 
     let cover: HTMLElement = document.querySelector( "#cover" );
@@ -549,4 +556,159 @@ function DeleteArtwork() {
         CloseArtworkPanel();
         GetArtworks();
     }
+}
+
+
+/*
+ 
+Features section
+ 
+*/
+
+//need this because the normal dragdata is unaccessible from dragover events.
+var dragData: HTMLElement;
+
+function dragOverFeatures( event: DragEvent ) {
+    event.preventDefault();
+}
+
+//drops the tile into the feature content area
+function dropToFeatures( event: DragEvent ) {
+    event.preventDefault();
+    
+    let dropPosition = event.clientX;
+    let closestFeature: HTMLElement = document.querySelector( "#features .tile img" );
+    let tile = convertDragDatatoElement( event );
+    tile.removeAttribute( "onclick" );
+    tile.querySelector( "img" ).setAttribute( "ondragstart", "dragStart(event)" );
+    tile.querySelector( "img" ).setAttribute( "ondragend", "dragEnd(event)" );
+
+    //delete feature if it already exists
+    let duplicateTile = document.querySelector( "#features .tile[data-anim_id='" + tile.dataset["anim_id"] + "']" );
+    if ( duplicateTile != undefined ) {
+        duplicateTile.remove();
+    }
+
+    if ( closestFeature != null ) {
+        //gets the closest feature to the drop point
+        document.querySelectorAll( "#features .tile img" ).forEach( ( item: HTMLElement ) => {
+            let difference = Math.abs( dropPosition - item.getBoundingClientRect().left );
+            let currentClosestDifference = Math.abs( dropPosition - closestFeature.getBoundingClientRect().left );
+
+            if ( difference < currentClosestDifference ) {
+                closestFeature = item;
+            }
+        } );
+
+        //inserts to the left of closest feature
+        if ( dropPosition < closestFeature.getBoundingClientRect().left ) {
+            closestFeature.parentElement.insertAdjacentElement( "beforebegin", tile );
+        }
+        //inserts to the right
+        else {
+            closestFeature.parentElement.insertAdjacentElement( "afterend", tile );
+        }
+    }
+    else {
+        document.querySelector( "#features .content" ).insertAdjacentElement( "beforeend", tile );
+    }
+
+    updateFeatureOrders();
+    putFeatures();
+}
+
+function dragOverCover( event: DragEvent ) {
+    event.preventDefault();
+
+    let tile = dragData;
+
+    //only features can get dropped on the cover
+    if ( tile.dataset["feature_order"] == undefined ) {
+        event.dataTransfer.dropEffect = "none";
+    }
+}
+
+//features dropped over the cover are removed
+function dropToCover( event: DragEvent ) {
+    event.preventDefault();
+
+    let tile = convertDragDatatoElement( event );
+
+    //only features can be dropped on the cover
+    if ( tile.dataset["feature_order"] != undefined ) {
+        document.querySelector( "#features .tile[data-anim_id='" + tile.dataset["anim_id"] + "']" )
+            .remove();
+        updateFeatureOrders();
+        putFeatures();
+    }
+}
+
+//updates the order data of the features
+function updateFeatureOrders() {
+    document.querySelectorAll( "#features .tile" ).forEach( ( feature: HTMLElement, index ) => {
+        feature.dataset["feature_order"] = index.toString();
+    } );
+}
+
+//upload changes to server
+function putFeatures() {
+    let featuresArray = new Array();
+    document.querySelectorAll( "#features .tile" ).forEach( ( feature: HTMLElement ) => {
+        featuresArray.push( {
+            anim_id: feature.dataset["anim_id"],
+            feature_order: feature.dataset["feature_order"]
+        } );
+    } );
+
+    let request = new XMLHttpRequest();
+    request.open( "PUT", apiDomain + "features" );
+    request.setRequestHeader( "Content-Type", "application/json" );
+    request.send( JSON.stringify( featuresArray ) );
+}
+
+
+/*
+
+Drag Events
+ 
+*/
+
+//highlights the drop areas when dragging an animation and sets dragdata
+function dragStart( event: DragEvent ) {
+    let tile = ( event.target as HTMLElement ).parentElement;
+
+    event.dataTransfer.setDragImage( event.target as HTMLImageElement, 0, 0 );
+    event.dataTransfer.setData( "text/html", tile.outerHTML );
+    dragData = convertDragDatatoElement(event);
+
+    //chrome is shitty and fires off every drag event when you start dragging
+    //setTimeout is workaround
+    setTimeout( () => {
+        document.querySelector( "#features" ).classList.add( "dropArea" );
+        toggleCover();
+    } );
+}
+
+function dragEnd( event: DragEvent ) {
+    let tile = ( event.target as HTMLElement ).parentElement;
+
+    document.querySelector( "#features" ).classList.remove( "dropArea" );
+    toggleCover();
+}
+
+
+/*
+
+Utils
+
+*/
+
+function toggleCover() {
+    document.querySelector( "#cover" ).classList.toggle( "cover" );
+}
+
+function convertDragDatatoElement( event: DragEvent ) {
+    let tile = event.dataTransfer.getData( "text/html" );
+    let parser = new DOMParser();
+    return parser.parseFromString( tile, "text/html" ).querySelector( "body" ).firstElementChild as HTMLElement;
 }

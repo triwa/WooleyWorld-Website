@@ -17,7 +17,7 @@ main {
 }
 
 #middleColumn {
-    min-width: 400px;
+    width: 447px;
 }
 
 #animations, #artwork {
@@ -48,6 +48,10 @@ main {
     margin-top: 10px;
     overflow-y: auto;
     margin-bottom: 10px;
+}
+
+#features {
+    width: 447px;
 }
 
 /*
@@ -166,7 +170,7 @@ main {
 .sidePanel .sectionHeader {
     background-color: rgba(0,0,0,.8);
     text-align: center;
-    min-width:initial;
+    min-width: initial;
 }
 
 .sidePanel .sectionHeader .panelTitle {
@@ -176,7 +180,7 @@ main {
 }
 
 .sidePanel .sectionHeader .closeIcon {
-    margin-left:auto;
+    margin-left: auto;
 }
 
 .sidePanel form {
@@ -192,7 +196,7 @@ main {
     border: 1px solid black;
 }
 
-.sidePanel form > label{
+.sidePanel form > label {
     max-width: 90%;
     align-self: center;
 }
@@ -215,8 +219,8 @@ main {
     margin: 0 50px;
 }
 
-.sidePanel form img, .sidePanel form button{
-    cursor:pointer;
+.sidePanel form img, .sidePanel form button {
+    cursor: pointer;
 }
 
 .closeIcon {
@@ -248,8 +252,8 @@ label.errorLabel {
 /*
     Artwork panel specific
 */
-#artworkPanel{
-    right:0px;
+#artworkPanel {
+    right: 0px;
 }
 
 #artworkPanel .tags {
@@ -257,10 +261,10 @@ label.errorLabel {
     border: none;
 }
 
-#artworkPanel .tagInput{
+#artworkPanel .tagInput {
     padding-bottom: 5px;
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 }
 
 #artworkPanel .tagInput input {
@@ -314,4 +318,14 @@ footer {
 
 footer a {
     color: grey;
+}
+
+/*
+    Utils
+*/
+.dropArea {
+    z-index: 2;
+    position: absolute;
+    box-shadow: 0 0 50px 10px white;
+    min-width: 400px;
 }
