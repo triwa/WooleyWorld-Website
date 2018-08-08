@@ -73,9 +73,9 @@ namespace WooleyWorld_Website.Controllers.API
             if (seriesRequest.Series_Thumbnail != "")
             {
                 File.Delete(ThumbDirectory + seriesToChange.Series_Thumbnail);
+
                 string thumbnailName = seriesRequest.Series_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-") + ".jpg";
-                ImageUtil.StoreImage(seriesRequest.Series_Thumbnail, thumbnailName, ThumbDirectory);
-                seriesToChange.Series_Thumbnail = thumbnailName;
+                seriesToChange.Series_Thumbnail = ImageUtil.StoreThumbnail(seriesRequest.Series_Thumbnail, thumbnailName, ThumbDirectory);
             }
 
             //update what animations are in the series
@@ -93,14 +93,15 @@ namespace WooleyWorld_Website.Controllers.API
         [Authorize]
         public IHttpActionResult PostSeries([FromBody]Series seriesRequest)
         {
-            Series seriesToAdd = new Series();
-            seriesToAdd.Series_Title = seriesRequest.Series_Title;
-            seriesToAdd.Series_Description = seriesRequest.Series_Description;
-            seriesToAdd.Animation_Series = new List<Animation_Series>();
+            Series seriesToAdd = new Series
+            {
+                Series_Title = seriesRequest.Series_Title,
+                Series_Description = seriesRequest.Series_Description,
+                Animation_Series = new List<Animation_Series>()
+            };
 
             string thumbnailName = seriesRequest.Series_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-") + ".jpg";
-            ImageUtil.StoreImage(seriesRequest.Series_Thumbnail, thumbnailName, ThumbDirectory);
-            seriesToAdd.Series_Thumbnail = thumbnailName;
+            seriesToAdd.Series_Thumbnail = ImageUtil.StoreThumbnail(seriesRequest.Series_Thumbnail, thumbnailName, ThumbDirectory);
 
             foreach (Animation_Series animSeries in seriesRequest.Animation_Series)
             {
@@ -123,7 +124,9 @@ namespace WooleyWorld_Website.Controllers.API
         [Authorize]
         public IHttpActionResult DeleteSeries(int id)
         {
-            series.Series.Remove(series.Series.Find(id));
+            Series seriesToRemove = series.Series.Find(id);
+            File.Delete(ThumbDirectory + seriesToRemove.Series_Thumbnail);
+            series.Series.Remove(seriesToRemove);
             series.SaveChanges();
             return Ok();
         }

@@ -280,19 +280,6 @@ function updateAnimationThumbnail() {
 
         image.onload = function () {
             ( document.querySelector( "#animationForm label img" ) as HTMLImageElement ).src = image.src;
-            let submitButton: HTMLButtonElement = document.querySelector( "#animationForm button" );
-
-            //error if image is too big
-            if ( image.width > 300 || image.height > 300 ) {
-                document.querySelector( "#AnimationError" ).innerHTML = "!Max thumbnail size is 300x300!";
-                animationForm.thumbnail.previousElementSibling.style.border = "5px solid red";
-                submitButton.disabled = true;
-            }
-            else {
-                document.querySelector( "#AnimationError" ).innerHTML = "";
-                animationForm.thumbnail.previousElementSibling.removeAttribute( "style" );
-                submitButton.disabled = false;
-            }
         };
     };
     reader.readAsDataURL( animationForm.thumbnail.files[0] );
@@ -317,7 +304,7 @@ function SubmitNewAnimation() {
                 Anim_Description:"`+ animationForm.description.value + `",
                 Anim_Thumbnail:"`+ imageString + `",
                 Anim_Title:"`+ animationForm.title.value + `",
-                Anim_Video:"`+ animationForm.videoLink.value + `"
+                Anim_Video:"`+ getYoutubeIdFromLink(animationForm.videoLink.value) + `"
             }`);
 
         request.onload = function () {
@@ -391,6 +378,9 @@ function DeleteAnimation() {
     };
 }
 
+function getYoutubeIdFromLink( youtubeLink: string ) {
+    return youtubeLink.match( "(?<=v=)(.*?)(?=&)" )[0];
+}
 
 /*
 
@@ -788,19 +778,6 @@ function updateSeriesThumbnail() {
 
         image.onload = function () {
             ( document.querySelector( "#seriesForm label img" ) as HTMLImageElement ).src = image.src;
-            let submitButton: HTMLButtonElement = document.querySelector( "#seriesForm button" );
-
-            //error if image is too big
-            if ( image.width > 300 || image.height > 300 ) {
-                document.querySelector( "#SeriesError" ).innerHTML = "!Max thumbnail size is 300x300!";
-                seriesForm.thumbnail.previousElementSibling.style.border = "5px solid red";
-                submitButton.disabled = true;
-            }
-            else {
-                document.querySelector( "#SeriesError" ).innerHTML = "";
-                seriesForm.thumbnail.previousElementSibling.removeAttribute( "style" );
-                submitButton.disabled = false;
-            }
         };
     };
     reader.readAsDataURL( seriesForm.thumbnail.files[0] );

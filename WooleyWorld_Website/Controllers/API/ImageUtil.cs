@@ -1,30 +1,110 @@
-﻿using System;
+﻿using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
+using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace WooleyWorld_Website.Controllers.API
 {
     public class ImageUtil
     {
-        public static void StoreImage(string thumbnail, string thumbnailName, string thumbDirectory)
+        /// <summary>
+        /// Stores the image as gif, png, or jpg. Thumbnails are max 600 x 600px.
+        /// Returns file name with extension.
+        /// </summary>
+        public static string StoreThumbnail(string image, string imageName, string storageLocation)
         {
-            string imageString = thumbnail.Split(',')[1];
-            string thumbnailStoragePath = thumbDirectory + thumbnailName;
+            return StoreImage(image, imageName, storageLocation, true);
+        }
 
-            var decodedThumbnail = Convert.FromBase64String(imageString);
-            MemoryStream streamBitmap = new MemoryStream(decodedThumbnail);
-            Bitmap bitImage = new Bitmap((Bitmap)Image.FromStream(streamBitmap));
+        /// <summary>
+        /// Stores the image as gif, png, or jpg.
+        /// Returns file name with extension.
+        /// </summary>
+        public static string StoreArtwork(string image, string imageName, string storageLocation)
+        {
+            return StoreImage(image, imageName, storageLocation, false);
+        }
 
-            Encoder encoder = Encoder.Quality;
-            EncoderParameters parameters = new EncoderParameters(1);
-            EncoderParameter encoderParameter = new EncoderParameter(encoder, 100L);
-            parameters.Param[0] = encoderParameter;
+        private static string StoreImage(string image, string imageName, string storageLocation, bool isThumbnail)
+        {
+            string[] imageProperties = image.Split(',');
+            string imageMimeType = Regex.Match(imageProperties[0], "(?<=:)(.*)(?=;)").Value;
+            string imageString = imageProperties[1];
+            string storagePath;
+            byte[] decodedImage = Convert.FromBase64String(imageString);
 
-            bitImage.Save(thumbnailStoragePath,
-               ImageCodecInfo.GetImageEncoders().Where(i => i.MimeType == "image/jpeg").First(),
-               parameters);
+            ISupportedImageFormat imageFormat;
+
+            //adds file extension and sets the image format
+            if (imageMimeType.Contains("png"))
+            {
+                imageName += ".png";
+                imageFormat = new PngFormat();
+            }
+            else if (imageMimeType.Contains("gif"))
+            {
+                if (isThumbnail)
+                {
+                    imageName += ".png";
+                    imageFormat = new PngFormat();
+                }
+                else
+                {
+                    imageName += ".gif";
+                    imageFormat = new GifFormat();
+                }
+            }
+            else
+            {
+                imageName += ".jpg";
+                imageFormat = new JpegFormat();
+            }
+
+            //saves the image
+            using (MemoryStream imageStream = new MemoryStream(decodedImage))
+            {
+                using (ImageFactory imageFactory = new ImageFactory())
+                {
+                    imageFactory.Load(decodedImage);
+
+                    //thumbnails need to be scaled down
+                    if (isThumbnail)
+                    {
+                        storagePath = storageLocation + imageName;
+
+                        using (Bitmap bitImage = new Bitmap((Bitmap)Image.FromStream(imageStream)))
+                        {
+                            if (bitImage.Height > 600)
+                            {
+                                int newHeight = 600;
+                                double scaleRatio = newHeight / bitImage.Height;
+                                int newWidth = (int)Math.Round(bitImage.Width * scaleRatio);
+
+                                imageFactory.Resize(new Size(newWidth, newHeight));
+                            }
+                            else if (bitImage.Width > 600)
+                            {
+                                int newWidth = 600;
+                                double scaleRatio = newWidth / bitImage.Width;
+                                int newHeight = (int)Math.Round(bitImage.Height * scaleRatio);
+
+                                imageFactory.Resize(new Size(newWidth, newHeight));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        storagePath = storageLocation + imageName;
+                    }
+
+                    imageFactory.Format(imageFormat)
+                        .Quality(100)
+                        .Save(storagePath);
+                }
+            }
+            return imageName;
         }
     }
 }
