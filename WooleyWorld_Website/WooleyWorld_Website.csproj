@@ -182,6 +182,7 @@
     <Compile Include="Controllers\API\AnimationsController.cs" />
     <Compile Include="Controllers\API\ArtworksController.cs" />
     <Compile Include="Controllers\API\FeaturesController.cs" />
+    <Compile Include="Controllers\API\ImageUtil.cs" />
     <Compile Include="Controllers\API\SeriesController.cs" />
     <Compile Include="Controllers\API\ThumbsController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />

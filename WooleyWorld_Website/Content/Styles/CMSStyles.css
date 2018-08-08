@@ -33,6 +33,7 @@ main {
 .content {
     padding: 5px;
     background-color: rgba(0,0,0,.5);
+    min-height: 50px;
 }
 
 #artwork .content {
@@ -288,6 +289,66 @@ label.errorLabel {
 }
 
 /*
+    Series Panel Specific
+*/
+#seriesPanel {
+    right: 0px;
+    width: auto;
+}
+
+#seriesForm .topRow {
+    display: flex;
+    background-color: transparent;
+    border: none;
+}
+
+#seriesForm .leftColumn {
+    margin-right: 10px;
+}
+
+#seriesForm .rightColumn {
+    display: flex;
+    flex-flow: column;
+    min-width: 400px;
+}
+
+#seriesPanel .sectionHeader span {
+    font-size: 15px;
+    float: right;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+#seriesPanel .rightColumn > * {
+    margin: 5px 0;
+    font-size: 20px;
+    background-color: rgba(255,255,255,.8);
+    border: 1px solid black;
+}
+
+
+#seriesPanel .rightColumn > label {
+    max-width: 90%;
+    align-self: center;
+}
+
+#seriesPanel .rightColumn > label img {
+    max-width: 100%;
+}
+
+#seriesPanel {
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .25s;
+}
+
+#seriesPanel.open {
+    transform: scaleX(1);
+}
+
+/*
     Cover
 */
 #cover {
@@ -328,4 +389,8 @@ footer a {
     position: absolute;
     box-shadow: 0 0 50px 10px white;
     min-width: 400px;
+}
+
+.overCover{
+    z-index:2;
 }

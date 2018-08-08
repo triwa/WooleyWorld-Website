@@ -2,8 +2,8 @@ CREATE TABLE Animation
 (
 	Anim_ID INT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
     Anim_Video NVARCHAR(20) NOT NULL, 
-    Anim_Title NVARCHAR(50) NOT NULL, 
-    Anim_Thumbnail NVARCHAR(60) NOT NULL, 
+    Anim_Title NVARCHAR(255) NOT NULL, 
+    Anim_Thumbnail NVARCHAR(255) NOT NULL, 
     Anim_Date DATE NOT NULL, 
     Anim_Description NVARCHAR(MAX) NULL
 );
