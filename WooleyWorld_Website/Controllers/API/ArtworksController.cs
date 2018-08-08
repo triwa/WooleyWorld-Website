@@ -1,22 +1,10 @@
-﻿using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Description;
 using WooleyWorld_Website.Models;
 
 namespace WooleyWorld_Website.Controllers.API
@@ -25,8 +13,8 @@ namespace WooleyWorld_Website.Controllers.API
     {
         private ArtworkDBContext artworks = new ArtworkDBContext();
         private TagDBContext tags = new TagDBContext();
-        private string ThumbDirectory = HttpContext.Current.Server.MapPath("/") + "Content\\Artworks\\Thumbnails\\";
-        private string ArtDirectory = HttpContext.Current.Server.MapPath("/") + "Content\\Artworks\\";
+        private readonly string ThumbDirectory = HttpContext.Current.Server.MapPath("/") + "Content\\Artworks\\Thumbnails\\";
+        private readonly string ArtDirectory = HttpContext.Current.Server.MapPath("/") + "Content\\Artworks\\";
 
         // GET: api/Artworks
         public IHttpActionResult GetArtwork()
@@ -86,15 +74,10 @@ namespace WooleyWorld_Website.Controllers.API
                 File.Delete(ArtDirectory + artworkToChange.Art_Image);
 
                 string thumbnailName = artInput.Art_Title + "_thumb - " + DateTime.Now.ToShortDateString().Replace("/", "-");
-                string thumbnailPath = StoreThumbnail(artInput.Art_Image, thumbnailName);
                 string imageName = artInput.Art_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-");
-                string imagePath = StoreArtwork(artInput.Art_Image, imageName);
 
-                StoreThumbnail(artInput.Art_Image, thumbnailName);
-                StoreArtwork(artInput.Art_Image, imageName);
-
-                artworkToChange.Art_Thumbnail = Path.GetFileName(thumbnailPath);
-                artworkToChange.Art_Image = Path.GetFileName(imagePath);
+                artworkToChange.Art_Thumbnail = ImageUtil.StoreThumbnail(artInput.Art_Image, thumbnailName, ThumbDirectory);
+                artworkToChange.Art_Image = ImageUtil.StoreArtwork(artInput.Art_Image, imageName, ArtDirectory);
             }
 
             //delete tags if needed
@@ -145,16 +128,14 @@ namespace WooleyWorld_Website.Controllers.API
             Artwork newArtwork = new Artwork();
 
             string thumbnailName = artInput.Art_Title + "_thumb - " + DateTime.Now.ToShortDateString().Replace("/", "-");
-            string thumbnailPath = StoreThumbnail(artInput.Art_Image, thumbnailName);
             string imageName = artInput.Art_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-");
-            string imagePath = StoreArtwork(artInput.Art_Image, imageName);
 
             newArtwork.Art_Title = artInput.Art_Title;
             newArtwork.Art_Description = artInput.Art_Description;
             newArtwork.Art_Type = artInput.Art_Type;
             newArtwork.Art_Date = DateTime.Now;
-            newArtwork.Art_Thumbnail = Path.GetFileName(thumbnailPath);
-            newArtwork.Art_Image = Path.GetFileName(imagePath);
+            newArtwork.Art_Thumbnail = ImageUtil.StoreThumbnail(artInput.Art_Image, thumbnailName, ThumbDirectory);
+            newArtwork.Art_Image = ImageUtil.StoreArtwork(artInput.Art_Image, imageName, ArtDirectory);
 
             //create tag entities and link to artwork
             foreach (string item in artInput.Art_Tags)
@@ -182,94 +163,13 @@ namespace WooleyWorld_Website.Controllers.API
         public IHttpActionResult DeleteArtwork(int id)
         {
             Artwork artwork = artworks.Artwork.Find(id);
+            File.Delete(ThumbDirectory + artwork.Art_Thumbnail);
+            File.Delete(ArtDirectory + artwork.Art_Image);
             artworks.Artwork.Remove(artwork);
             artworks.SaveChanges();
             CleanUpTags();
 
             return Ok();
-        }
-
-        private string StoreThumbnail(string image, string imageName)
-        {
-            return StoreImage(image, imageName, true);
-        }
-
-        private string StoreArtwork(string image, string imageName)
-        {
-            return StoreImage(image, imageName, false);
-        }
-
-        private string StoreImage(string image, string imageName, bool isThumbnail)
-        {
-            string[] imageProperties = image.Split(',');
-            string imageMimeType = Regex.Match(imageProperties[0], "(?<=:)(.*)(?=;)").Value;
-            string imageString = imageProperties[1];
-            string storagePath;
-            byte[] decodedImage = Convert.FromBase64String(imageString);
-
-            ISupportedImageFormat imageFormat;
-
-            //adds file extension and sets the image format
-            if (imageMimeType.Contains("png"))
-            {
-                imageName += ".png";
-                imageFormat = new PngFormat();
-            }
-            else if (imageMimeType.Contains("gif"))
-            {
-                if (isThumbnail)
-                {
-                    imageName += ".png";
-                    imageFormat = new PngFormat();
-                }
-                else
-                {
-                    imageName += ".gif";
-                    imageFormat = new GifFormat();
-                }
-            }
-            else
-            {
-                imageName += ".jpg";
-                imageFormat = new JpegFormat();
-            }
-
-            using (MemoryStream imageStream = new MemoryStream(decodedImage))
-            {
-                using (ImageFactory imageFactory = new ImageFactory())
-                {
-                    imageFactory.Load(decodedImage);
-
-                    //thumbnails go into their own directory
-                    if (isThumbnail)
-                    {
-                        storagePath = ThumbDirectory + imageName;
-
-                        //scaled down if dimensions are too large
-                        using (Bitmap bitImage = new Bitmap((Bitmap)Image.FromStream(imageStream)))
-                        {
-                            if (bitImage.Height > 300)
-                            {
-                                int newHeight = 300;
-                                double scaleRatio = newHeight / bitImage.Height;
-                                int newWidth = (int)Math.Round(bitImage.Width * scaleRatio);
-
-                                imageFactory.Resize(new Size(newWidth, newHeight));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        storagePath = ArtDirectory + imageName;
-                    }
-
-                    imageFactory.Format(imageFormat)
-                        .Quality(100)
-                        .Save(storagePath);
-                }
-            }
-
-            return storagePath;
         }
 
         //remove unused tags from the database

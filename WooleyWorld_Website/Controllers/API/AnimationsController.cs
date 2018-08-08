@@ -66,11 +66,9 @@ namespace WooleyWorld_Website.Controllers.API
             {
                 File.Delete(ThumbDirectory + animationToChange.Anim_Thumbnail);
 
-                string thumbnailName = animInput.Anim_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-") + ".jpg";
+                string thumbnailName = animInput.Anim_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-");
 
-                ImageUtil.StoreImage(animInput.Anim_Thumbnail, thumbnailName, ThumbDirectory);
-
-                animationToChange.Anim_Thumbnail = thumbnailName;
+                animationToChange.Anim_Thumbnail = ImageUtil.StoreThumbnail(animInput.Anim_Thumbnail, thumbnailName, ThumbDirectory);
             }
 
             animations.SaveChanges();
@@ -82,13 +80,11 @@ namespace WooleyWorld_Website.Controllers.API
         [Authorize]
         public IHttpActionResult PostAnimation([FromBody]Animation animInput)
         {
-            string thumbnailName = animInput.Anim_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-") + ".jpg";
-
-            ImageUtil.StoreImage(animInput.Anim_Thumbnail, thumbnailName, ThumbDirectory);
+            string thumbnailName = animInput.Anim_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-");
 
             //add animation to DB
             animInput.Anim_Date = DateTime.Now;
-            animInput.Anim_Thumbnail = thumbnailName;
+            animInput.Anim_Thumbnail = ImageUtil.StoreThumbnail(animInput.Anim_Thumbnail, thumbnailName, ThumbDirectory);
 
             animations.Animation.Add(animInput);
             animations.SaveChanges();
