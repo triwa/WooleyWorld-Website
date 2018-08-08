@@ -29,9 +29,9 @@
         <section id="series">
             <div class="sectionHeader">
                 <label title="Collapse Section" class="collapseButton">Series</label>
-                <label class="newIcon" title="Add New Series">+</label>
+                <label class="newIcon" title="Add New Series" onclick="OpenSeriesPanel('new')">+</label>
             </div>
-            <div class="content"></div>
+            <div class="content" ondragover="dragOverSeries(event)" ondrop="dropToSeries(event)"></div>
         </section>
     </div>
 
@@ -67,7 +67,7 @@
     </section>
 
     <!--
-    Side panels
+        Side panels
     -->
     <div id="cover" ondragover="dragOverCover(event)" ondrop="dropToCover(event)"></div>
 
@@ -80,7 +80,7 @@
             <form id="animationForm" name="animationForm" autocomplete="off">
                 <input name="id" hidden />
                 <input name="title" placeholder="Title" required />
-                <input name="videoLink" placeholder="Video Link" required />
+                <input name="videoLink" placeholder='Video Link (watch?v="xxxxx")' required />
                 <label for="thumbnail"><img src="~/Content/CMS/thumbnail.png" title="Choose Thumbnail" /></label>
                 <input hidden name="thumbnail" id="thumbnail" type="file" onchange="updateAnimationThumbnail()" />
                 <textarea name="description" placeholder="Description" rows="5" required></textarea>
@@ -116,6 +116,40 @@
                 <div class="foot">
                     <button type="submit">Save</button>
                     <img class="deleteButton" title="Delete Artwork" src="~/Content/CMS/delete.png" onclick="DeleteArtwork()" />
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="seriesPanel" class="sidePanel">
+        <div class="sectionHeader">
+            <label class="sectionTitle panelTitle">Edit Series</label>
+            <label class="closeIcon" title="Close panel" onclick="CloseSeriesPanel()">X</label>
+        </div>
+        <div class="panelBody">
+            <form id="seriesForm" name="seriesForm" autocomplete="off">
+                <div class="topRow">
+                    <div class="leftColumn">
+                        <section id="seriesAnimations">
+                            <div class="sectionHeader">
+                                <label class="collapseButton">Animations<span>Drag and drop<br />animations</span></label>
+                            </div>
+                            <div class="content" ondragover="dragOverSeriesAnimations(event)" ondrop="dropToSeriesAnimations(event)"></div>
+                        </section>
+                    </div>
+                    <div class="rightColumn">
+                        <input name="id" hidden />
+                        <input name="order" hidden />
+                        <input name="title" placeholder="Title" required />
+                        <label for="seriesThumbnail"><img src="~/Content/CMS/seriesThumbnail.png" title="Choose Thumbnail" /></label>
+                        <input hidden name="thumbnail" id="seriesThumbnail" type="file" onchange="updateSeriesThumbnail()" />
+                        <textarea name="description" placeholder="Description" rows="5" required></textarea>
+                        <label id="SeriesError" class="errorLabel"></label>
+                    </div>
+                </div>
+                <div class="foot">
+                    <button type="submit">Save</button>
+                    <img class="deleteButton" title="Delete Series" src="~/Content/CMS/delete.png" onclick="DeleteSeries()" />
                 </div>
             </form>
         </div>

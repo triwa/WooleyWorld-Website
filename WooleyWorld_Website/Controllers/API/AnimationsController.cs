@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using WooleyWorld_Website.Models;
@@ -20,7 +10,7 @@ namespace WooleyWorld_Website.Controllers.API
     public class AnimationsController : ApiController
     {
         private AnimationDBContext animations = new AnimationDBContext();
-        private string ThumbDirectory = HttpContext.Current.Server.MapPath("/") + "Content\\Animations\\Thumbnails\\";
+        private readonly string ThumbDirectory = HttpContext.Current.Server.MapPath("/") + "Content\\Animations\\Thumbnails\\";
 
         // GET: api/Animations
         public IHttpActionResult GetAnimation()
@@ -78,7 +68,7 @@ namespace WooleyWorld_Website.Controllers.API
 
                 string thumbnailName = animInput.Anim_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-") + ".jpg";
 
-                StoreImage(animInput.Anim_Thumbnail, thumbnailName);
+                ImageUtil.StoreImage(animInput.Anim_Thumbnail, thumbnailName, ThumbDirectory);
 
                 animationToChange.Anim_Thumbnail = thumbnailName;
             }
@@ -94,7 +84,7 @@ namespace WooleyWorld_Website.Controllers.API
         {
             string thumbnailName = animInput.Anim_Title + " - " + DateTime.Now.ToShortDateString().Replace("/", "-") + ".jpg";
 
-            StoreImage(animInput.Anim_Thumbnail, thumbnailName);
+            ImageUtil.StoreImage(animInput.Anim_Thumbnail, thumbnailName, ThumbDirectory);
 
             //add animation to DB
             animInput.Anim_Date = DateTime.Now;
@@ -104,25 +94,6 @@ namespace WooleyWorld_Website.Controllers.API
             animations.SaveChanges();
 
             return Json(animInput);
-        }
-
-        private void StoreImage(string thumbnail, string thumbnailName)
-        {
-            string imageString = thumbnail.Split(',')[1];
-            string thumbnailStoragePath = ThumbDirectory + thumbnailName;
-
-            var decodedThumbnail = Convert.FromBase64String(imageString);
-            MemoryStream streamBitmap = new MemoryStream(decodedThumbnail);
-            Bitmap bitImage = new Bitmap((Bitmap)Image.FromStream(streamBitmap));
-
-            Encoder encoder = Encoder.Quality;
-            EncoderParameters parameters = new EncoderParameters(1);
-            EncoderParameter encoderParameter = new EncoderParameter(encoder, 100L);
-            parameters.Param[0] = encoderParameter;
-
-            bitImage.Save(thumbnailStoragePath,
-               ImageCodecInfo.GetImageEncoders().Where(i => i.MimeType == "image/jpeg").First(),
-               parameters);
         }
 
         // DELETE: api/Animations/{anim_id}
