@@ -143,12 +143,8 @@ main {
     pointer-events: none;
 }
 
-#animations .tile img {
-    max-height: 113px;
-}
-
-#artwork .tile img {
-    max-height: 200px;
+.tile img {
+    max-height: 150px;
 }
 
 /*
