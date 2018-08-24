@@ -105,10 +105,11 @@ h1 {
 article {
     margin: 2px 2px 0 0;
     display: flex;
-    height: 100%;
-    max-height: 300px;
     position: relative;
-    max-width: 100%;
+}
+
+article img {
+    max-height: 300px;
 }
 
 article .title {
@@ -127,10 +128,6 @@ article .title {
 
 article .title:hover {
     opacity: 1;
-}
-
-#artworks img {
-    max-width: 100%
 }
 
 /*
@@ -254,10 +251,33 @@ article .title:hover {
     margin: 0 20px;
 }
 
-/*
+#imageViewer ul{
+    display:inline
+}
+
+#imageViewer #art_tags {
+    margin: 0 10%;
+    font-size: 90%;
+    font-weight:bold;
+}
+
+#imageViewer #art_tags a {
+    text-decoration: none;
+    color: black;
+}
+
+#imageViewer #art_tags a:not(:first-child):before{
+    content:", ";
+}
+
+#imageViewer #art_tags a:hover {
+    color:grey;
+}
+
+    /*
     Utility Class
 */
-.searchFiltered, .typeFiltered, .offMode, .hidden {
+    .searchFiltered, .typeFiltered, .offMode, .hidden {
     display: none !important;
 }
 

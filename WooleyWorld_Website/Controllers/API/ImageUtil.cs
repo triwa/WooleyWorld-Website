@@ -34,6 +34,8 @@ namespace WooleyWorld_Website.Controllers.API
             string imageString = imageProperties[1];
             string storagePath;
             byte[] decodedImage = Convert.FromBase64String(imageString);
+            int maxThumbHeight = 300;
+            int maxThumbWidth = 300;
 
             ISupportedImageFormat imageFormat;
 
@@ -76,17 +78,17 @@ namespace WooleyWorld_Website.Controllers.API
 
                         using (Bitmap bitImage = new Bitmap((Bitmap)Image.FromStream(imageStream)))
                         {
-                            if (bitImage.Height > 600)
+                            if (bitImage.Height > maxThumbHeight)
                             {
-                                int newHeight = 600;
+                                int newHeight = maxThumbHeight;
                                 double scaleRatio = newHeight / bitImage.Height;
                                 int newWidth = (int)Math.Round(bitImage.Width * scaleRatio);
 
                                 imageFactory.Resize(new Size(newWidth, newHeight));
                             }
-                            else if (bitImage.Width > 600)
+                            else if (bitImage.Width > maxThumbWidth)
                             {
-                                int newWidth = 600;
+                                int newWidth = maxThumbWidth;
                                 double scaleRatio = newWidth / bitImage.Width;
                                 int newHeight = (int)Math.Round(bitImage.Height * scaleRatio);
 

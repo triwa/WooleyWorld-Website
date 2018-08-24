@@ -27,14 +27,24 @@ document.onreadystatechange = function () {
         }
 
         getThumbs().then( onfulfilled => {
-            if ( new URLSearchParams( this.location.search ).get( "mode" ) === "tag" ) {
+            let queryString = new URLSearchParams( this.location.search ).get( "tag" );
+            if ( queryString !== null ) {
                 toggleMode( "tag" );
-                history.pushState( "", "", "/Gallery?mode=tag" );
+                if ( queryString === "" ) {
+                    history.pushState( "", "", "/Gallery?tag" );
+                }
+                //auto open the tag and scroll to it
+                else {
+                    try {
+                        let tagListing = ( document.querySelector( `.tagListing[data-tag="${queryString}"] h3` ) as HTMLElement );
+                        tagListing.click();
+                        tagListing.scrollIntoView();
+                    } catch ( e ) { }
+                }
             }
             else {
                 ( document.querySelector( "#viewModeToggle" ) as HTMLElement ).onclick = () => toggleMode( "tag" );
                 history.pushState( "", "", "/Gallery" );
-                
             }
             history.pushState( "", "", currentUrl );
         } );
@@ -145,7 +155,7 @@ function toggleMode( modeTarget ) {
         document.querySelector( "#artworks" ).classList.add( "offMode" );
         toggleButton.innerHTML = "Switch to Art View";
         toggleButton.onclick = () => { toggleMode( "art" ) };
-        history.pushState( "", "", "?mode=tag" );
+        history.pushState( "", "", "?tag" );
         getTagListings();
         generateTagListings();
     }
@@ -264,6 +274,13 @@ function loadViewer( art_id ) {
         document.querySelector( "#imageViewer #title" ).innerHTML = response["Art_Title"];
         document.querySelector( "#imageViewer #uploadDate" ).innerHTML = new Date( response["Art_Date"] ).toLocaleString().split(",")[0];
         document.querySelector( "#imageViewer #description" ).innerHTML = response["Art_Description"];
+        document.querySelector( "#art_tags ul" ).innerHTML = "";
+
+        (response["tags"] as Tag[]).forEach( ( tag )=> {
+            document.querySelector( "#art_tags ul" ).insertAdjacentHTML( "beforeend", `
+                <a href="/Gallery?tag=${tag.Tag_Title}">${tag.Tag_Title}</a>
+            `);
+        } );
 
         image.src = "/Content/Artworks/" + response["Art_Image"];
         image.onload = () => {
