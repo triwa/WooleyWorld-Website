@@ -102,7 +102,7 @@ function GetSeries() {
 
 //fills the artwork section
 function GetArtworks() {
-    document.querySelectorAll( "#artwork .content .content" ).forEach(item => { item.innerHTML = "" });
+    document.querySelectorAll( "#artwork .content .content" ).forEach( item => { item.innerHTML = "" } );
 
     let request = new XMLHttpRequest();
     request.open( "GET", apiDomain + "thumbs/artworks" );
@@ -222,13 +222,13 @@ Animation Panel
 //initializes and opens the animation side panel
 function OpenAnimationPanel( mode, animation ) {
     //do nothing if another panel is open
-    if (document.querySelector( "#cover" ).classList.contains("cover") ) {
+    if ( document.querySelector( "#cover" ).classList.contains( "cover" ) ) {
         return;
     }
 
     let animationForm: any = document.querySelector( "#animationForm" );
     let deleteImg: HTMLElement = document.querySelector( "#animationPanel form .foot img" );
-    
+
     if ( mode === "new" ) {
         animationForm.onsubmit = function () { SubmitNewAnimation(); return false; };
         document.querySelector( "#animationPanel .panelTitle" ).innerHTML = "New Animation";
@@ -264,7 +264,7 @@ function CloseAnimationPanel() {
 
     SlidePanel( "animationPanel" );
     animationForm.reset();
-    (document.querySelector( "#animationForm label img" ) as HTMLImageElement ).src = "/Content/CMS/thumbnail.png";
+    ( document.querySelector( "#animationForm label img" ) as HTMLImageElement ).src = "/Content/CMS/thumbnail.png";
     document.querySelector( "#AnimationError" ).innerHTML = "";
     animationForm.thumbnail.previousElementSibling.removeAttribute( "style" );
 }
@@ -276,7 +276,7 @@ function updateAnimationThumbnail() {
     let reader = new FileReader();
     reader.onload = function () {
         let image = new Image;
-        image.src = reader.result;
+        image.src = reader.result as string;
 
         image.onload = function () {
             ( document.querySelector( "#animationForm label img" ) as HTMLImageElement ).src = image.src;
@@ -292,7 +292,7 @@ function SubmitNewAnimation() {
 
     let reader = new FileReader();
     reader.onload = function () {
-        imageString = reader.result;
+        imageString = reader.result as string;
 
         document.querySelector( "#AnimationError" ).innerHTML = "";
         animationForm.thumbnail.previousElementSibling.removeAttribute( "style" );
@@ -304,7 +304,7 @@ function SubmitNewAnimation() {
                 Anim_Description:"`+ animationForm.description.value + `",
                 Anim_Thumbnail:"`+ imageString + `",
                 Anim_Title:"`+ animationForm.title.value + `",
-                Anim_Video:"`+ getYoutubeIdFromLink(animationForm.videoLink.value) + `"
+                Anim_Video:"`+ getYoutubeIdFromLink( animationForm.videoLink.value ) + `"
             }`);
 
         request.onload = function () {
@@ -340,7 +340,7 @@ function PutAnimation() {
 
         let reader = new FileReader();
         reader.onload = function () {
-            imageString = reader.result;
+            imageString = reader.result as string;
 
             document.querySelector( "#AnimationError" ).innerHTML = "";
             animationForm.thumbnail.previousElementSibling.removeAttribute( "style" );
@@ -416,7 +416,7 @@ function OpenArtworkPanel( mode, type, artwork ) {
             artworkForm.title.value = response.Art_Title;
             artworkForm.type.value = response.Art_Type;
             artworkForm.description.value = response.Art_Description;
-            (document.querySelector( "#artworkForm label img" ) as HTMLImageElement).src = "../Content/Artworks/" + response.Art_Image;
+            ( document.querySelector( "#artworkForm label img" ) as HTMLImageElement ).src = "../Content/Artworks/" + response.Art_Image;
 
             //generate inputs for each existing tag
             document.querySelector( "#artworkForm .tags" ).innerHTML = "";
@@ -442,7 +442,7 @@ function CloseArtworkPanel() {
 
     SlidePanel( "artworkPanel" );
     artworkForm.reset();
-    (document.querySelector( "#artworkForm label img" ) as HTMLImageElement).src = "/Content/CMS/artwork.png";
+    ( document.querySelector( "#artworkForm label img" ) as HTMLImageElement ).src = "/Content/CMS/artwork.png";
     document.querySelector( "#artworkForm .tags" ).innerHTML = "";
     generateTagInput();
     document.querySelector( "#ArtworkError" ).innerHTML = "";
@@ -458,10 +458,10 @@ function generateTagInput() {
                     </div>
                 `);
     let currentTags = document.querySelectorAll( "#artworkForm .tagInput" );
-    (currentTags[currentTags.length - 1].childNodes[1] as any).onfocus = function () { generateTagInput(); };
+    ( currentTags[currentTags.length - 1].childNodes[1] as any ).onfocus = function () { generateTagInput(); };
     try {
-        (currentTags[currentTags.length - 2].childNodes[1] as any).onfocus = null;
-    } catch ( e ) {null}
+        ( currentTags[currentTags.length - 2].childNodes[1] as any ).onfocus = null;
+    } catch ( e ) { null }
 }
 
 function removeTagInput( sender ) {
@@ -470,7 +470,7 @@ function removeTagInput( sender ) {
     //move tag generator event listener to the previous tag input
     try {
         nodeToRemove.previousElementSibling.childNodes[1].onfocus = function () { generateTagInput(); };
-    } catch ( e ) {null}
+    } catch ( e ) { null }
 
     nodeToRemove.parentElement.removeChild( nodeToRemove );
 
@@ -486,10 +486,10 @@ function updateArtworkThumbnail() {
     let reader = new FileReader();
     reader.onload = function () {
         let image = new Image;
-        image.src = reader.result;
+        image.src = reader.result as string;
 
         image.onload = function () {
-            (document.querySelector( "#artworkForm label img" ) as HTMLImageElement).src = image.src;
+            ( document.querySelector( "#artworkForm label img" ) as HTMLImageElement ).src = image.src;
         };
     };
     reader.readAsDataURL( artworkForm.artwork.files[0] );
@@ -502,7 +502,7 @@ function SubmitNewArtwork() {
 
     let reader = new FileReader();
     reader.onload = function () {
-        imageString = reader.result;
+        imageString = reader.result as string;
 
         document.querySelector( "#ArtworkError" ).innerHTML = "";
         artworkForm.artwork.previousElementSibling.removeAttribute( "style" );
@@ -556,7 +556,7 @@ function PutArtwork() {
 
         let reader = new FileReader();
         reader.onload = function () {
-            imageString = reader.result;
+            imageString = reader.result as string;
 
             document.querySelector( "#ArtworkError" ).innerHTML = "";
             artworkForm.artwork.previousElementSibling.removeAttribute( "style" );
@@ -587,8 +587,8 @@ function ParseTags() {
 
     let tags = new Array();
     Array.from( artworkForm.tag ).forEach( item => {
-        if ( (item as any).value != "" ) {
-            tags.push( (item as any).value )
+        if ( ( item as any ).value != "" ) {
+            tags.push( ( item as any ).value )
         }
     } );
 
@@ -640,7 +640,7 @@ function dragOverSeries( event: DragEvent ) {
     event.preventDefault();
 }
 
-function dropToSeries( event: DragEvent) {
+function dropToSeries( event: DragEvent ) {
     event.preventDefault();
 
     let tile = getElementFromDragData( event );
@@ -774,7 +774,7 @@ function updateSeriesThumbnail() {
     let reader = new FileReader();
     reader.onload = function () {
         let image = new Image;
-        image.src = reader.result;
+        image.src = reader.result as string;
 
         image.onload = function () {
             ( document.querySelector( "#seriesForm label img" ) as HTMLImageElement ).src = image.src;
@@ -809,7 +809,7 @@ function putSeries() {
     if ( seriesForm.thumbnail.files.length != 0 ) {
         let reader = new FileReader();
         reader.onload = function () {
-            seriesToUpdate.Series_Thumbnail = reader.result;
+            seriesToUpdate.Series_Thumbnail = reader.result as string;
             makeRequest();
         }
         reader.readAsDataURL( seriesForm.thumbnail.files[0] );
@@ -833,7 +833,7 @@ function putSeries() {
 function putSeriesOrders() {
     let seriesArray = new Array();
 
-    document.querySelectorAll( "#series .tile" ).forEach( (series:HTMLElement) => {
+    document.querySelectorAll( "#series .tile" ).forEach( ( series: HTMLElement ) => {
         seriesArray.push( {
             Series_Id: series.dataset["series_id"],
             Series_Order: series.dataset["series_order"]
@@ -870,7 +870,7 @@ function SubmitNewSeries() {
 
     let reader = new FileReader();
     reader.onload = function () {
-        seriesToCreate.Series_Thumbnail = reader.result;
+        seriesToCreate.Series_Thumbnail = reader.result as string;
         makeRequest();
     }
     reader.readAsDataURL( seriesForm.thumbnail.files[0] );
@@ -1010,7 +1010,7 @@ function CollapseSectionsBind() {
 
     document.querySelectorAll( ".content" ).forEach( i => i.addEventListener( "transitionend", function ( event ) {
         if ( this.classList.contains( "collapsed" ) ) {
-            this.style.display = "none";
+            ( this as HTMLElement ).style.display = "none";
         }
     } ) );
 }
@@ -1026,7 +1026,7 @@ function getElementFromDragData( event: DragEvent ) {
 }
 
 //this figures out where to place a tile relative to the other tiles in a dropzone
-function insertTile( dropEvent: DragEvent, droppedTile:HTMLElement, tileSection: string ) {
+function insertTile( dropEvent: DragEvent, droppedTile: HTMLElement, tileSection: string ) {
     interface Point {
         x: number,
         y: number
@@ -1050,7 +1050,7 @@ function insertTile( dropEvent: DragEvent, droppedTile:HTMLElement, tileSection:
         let tileToAdd: Tile = {
             id: undefined,
             centerPoint: centerPoint,
-            distanceFromDrop:undefined
+            distanceFromDrop: undefined
         };
 
         //if series tile was dropped

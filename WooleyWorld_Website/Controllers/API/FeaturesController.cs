@@ -13,7 +13,7 @@ namespace WooleyWorld_Website.Controllers.API
         public IHttpActionResult Get()
         {
             return Json(features.Feature
-                    .Select(i => new { i.Anim_ID, i.Animation.Anim_Title, i.Animation.Anim_Thumbnail, i.Feature_Order })
+                    .Select(i => new { i.Anim_ID, i.Animation.Anim_Title, i.Animation.Anim_Thumbnail, i.Feature_Order,i.Animation.Anim_Description })
                     .OrderBy(i => i.Feature_Order));
         }
 

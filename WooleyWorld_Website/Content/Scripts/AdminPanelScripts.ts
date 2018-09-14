@@ -1,5 +1,6 @@
 ﻿declare var apiDomain: string;
 
+namespace AdminPanelPage {
 //initialize page
 document.addEventListener( "DOMContentLoaded", function ( event ) {
     fillTable();
@@ -50,5 +51,6 @@ function addAdmin( form ) {
                 <td><button onclick="removeAdmin(this)" value="`+ form.newUsername.value + `">Remove</button></td>
             </tr>
         `);
+    }
     }
 }
