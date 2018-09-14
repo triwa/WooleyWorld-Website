@@ -17,7 +17,7 @@ namespace WooleyWorld_Website.Controllers.API
         public IHttpActionResult Get()
         {
             return Json(series.Series
-                    .Select(i => new { i.Series_ID, i.Series_Thumbnail, i.Series_Title, i.Series_Order })
+                    .Select(i => new { i.Series_ID, i.Series_Thumbnail, i.Series_Title, i.Series_Order, i.Series_Description })
                     .OrderBy(i => i.Series_Order));
         }
 

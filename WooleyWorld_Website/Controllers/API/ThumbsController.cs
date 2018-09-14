@@ -7,15 +7,20 @@ namespace WooleyWorld_Website.Controllers.API
 {
     public class ThumbsController : ApiController
     {
-        // GET: api/thumbs/animations||artworks
-        //returns ID, title, and thumbnail of all animations. Ordered descending by date
+        //returns ID, title, description and thumbnail of all animations. Ordered descending by date
         [Route("api/thumbs/animations")]
         public IHttpActionResult GetAnimations()
         {
             AnimationDBContext animations = new AnimationDBContext();
             return Json(animations.Animation
                     .OrderByDescending(i => i.Anim_Date)
-                    .Select(i => new { i.Anim_ID, i.Anim_Title, i.Anim_Thumbnail }));
+                    .Select(i => new
+                    {
+                        i.Anim_ID,
+                        i.Anim_Title,
+                        i.Anim_Thumbnail,
+                        i.Anim_Description
+                    }));
         }
 
         //returns ID, title, thumbnail, and type of all artworks. Ordered descending by date

@@ -140,16 +140,16 @@ article .title:hover {
 .tagListing h3 {
     cursor: pointer;
     margin-top: 10px;
-    display:flex;
+    display: flex;
 }
 
-.tagListing h3:after{
-    content:"";
-    align-self:center;
-    margin-left:10px;
-    background-color:rgba(0,0,0,.3);
-    height:1px;
-    flex-grow:1;
+.tagListing h3:after {
+    content: "";
+    align-self: center;
+    margin-left: 10px;
+    background-color: rgba(0,0,0,.3);
+    height: 1px;
+    flex-grow: 1;
 }
 
 .tagListing section {
@@ -251,14 +251,14 @@ article .title:hover {
     margin: 0 20px;
 }
 
-#imageViewer ul{
-    display:inline
+#imageViewer ul {
+    display: inline
 }
 
 #imageViewer #art_tags {
     margin: 0 10%;
     font-size: 90%;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 #imageViewer #art_tags a {
@@ -266,18 +266,18 @@ article .title:hover {
     color: black;
 }
 
-#imageViewer #art_tags a:not(:first-child):before{
-    content:", ";
+#imageViewer #art_tags a:not(:first-child):before {
+    content: ", ";
 }
 
 #imageViewer #art_tags a:hover {
-    color:grey;
+    color: grey;
 }
 
-    /*
+/*
     Utility Class
 */
-    .searchFiltered, .typeFiltered, .offMode, .hidden {
+.searchFiltered, .typeFiltered, .offMode, .hidden {
     display: none !important;
 }
 
