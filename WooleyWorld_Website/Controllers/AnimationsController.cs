@@ -6,22 +6,26 @@ namespace WooleyWorld_Website.Controllers
     public class AnimationsController : Controller
     {
         // GET: Animations
+        [Route("Animations")]
         public ActionResult Animations()
         {
             return View();
         }
-
-        //GET: Animations/{Animation_ID}
-        public ActionResult Animation(int id)
+        
+        [Route("Animations/{id:int}")]
+        public ActionResult Animations(int id)
         {
             AnimationDBContext animations = new AnimationDBContext();
+            Animation selectedAnimation = animations.Animation.Find(id);
 
             if (animations.Animation.Find(id) == null)
             {
                 return RedirectToAction("Animations");
             }
 
-            return View("Animations");
+            ViewBag.Animation_Title = selectedAnimation.Anim_Title;
+
+            return View("AnimationView");
         }
     }
 }

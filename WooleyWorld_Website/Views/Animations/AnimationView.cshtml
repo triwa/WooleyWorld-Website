@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/_LayoutPageBanner.cshtml";
+}
+
+@section head{
+    <title>@ViewBag.Animation_Title</title>
+    <link href="~/Content/Styles/AnimationViewStyles.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/Globals.js"></script>
+    <script src="~/Content/Scripts/AnimationViewScripts.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+}
+
+    <main>
+        <section id="titleArea">
+            <div id="titleAndDate">
+                <span id="title"></span>
+                <span id="uploadDate"></span>
+            </div>
+            <div id="socialMedia">
+                <img src="~/Content/facebookIcon.png" />
+                <img src="~/Content/twitterIcon.png" />
+            </div>
+        </section>
+        <p id="description"></p>
+
+        <section id="videoContainer">
+            <div id="player"></div>
+            <div id="replayOptions" class="hidden">
+                <h2>Want more?</h2>
+                <div id="suggestedAnimations"></div>
+                <button id="replayButton" onclick="replay();">Replay?</button>
+            </div>
+        </section>
+
+        <video src="~/Content/ohshitimsorry.webm" autoplay loop muted></video>
+    </main>

@@ -127,7 +127,7 @@ namespace animationsPage {
             document.querySelector( `.yearContainer[data-year="${new Date( animation.Anim_Date ).getFullYear().toString()}"]` )
                 .insertAdjacentHTML( "beforeend", `
                     <article>
-                        <a class="textContainer" href="/Animation/${animation.Anim_ID}" >
+                        <a class="textContainer" href="/Animations/${animation.Anim_ID}" >
                             <h3 class="title">${animation.Anim_Title}</h3>
                         </a>
                         <img src = "/Content/Animations/Thumbnails/${animation.Anim_Thumbnail}"/>

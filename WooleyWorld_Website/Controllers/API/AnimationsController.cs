@@ -51,6 +51,17 @@ namespace WooleyWorld_Website.Controllers.API
             return Ok(response);
         }
 
+        // GET
+        [Route("api/Animations/random")]
+        public IHttpActionResult GetRandomAnimationThumbs(int quantity)
+        {
+            object[] randomAnimations = animations.Animation.OrderBy(i => Guid.NewGuid())
+                .Take(quantity)
+                .Select(i => new { i.Anim_ID, i.Anim_Title, i.Anim_Thumbnail })
+                .ToArray();
+            return Ok(randomAnimations);
+        }
+
         // PUT: api/Animations/{anim_id}
         [Authorize]
         public IHttpActionResult PutAnimation(int id, [FromBody]Animation animInput)

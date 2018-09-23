@@ -130,45 +130,18 @@
     <Content Include="App_Data\WooleyWorldDB_log.ldf">
       <DependentUpon>WooleyWorldDB.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\AboutUs\grant.jpg" />
-    <Content Include="Content\AboutUs\tristan.jpg" />
-    <Content Include="Content\AdminPanel\bg.webm" />
-    <Content Include="Content\Artworks\asre - 3-29-2018.jpg" />
-    <Content Include="Content\Artworks\flying.jpg" />
-    <Content Include="Content\Artworks\leona.jpg" />
-    <Content Include="Content\Artworks\Target Locked - 3-27-2018.jpg" />
-    <Content Include="Content\Artworks\Thumbnails\asre_thumb - 3-29-2018.jpg" />
-    <Content Include="Content\Artworks\Thumbnails\flyingthumb.jpg" />
-    <Content Include="Content\Artworks\Thumbnails\leonathumb.jpg" />
-    <Content Include="Content\Artworks\Thumbnails\Target Locked_thumb - 3-27-2018.jpg" />
-    <Content Include="Content\Artworks\Thumbnails\tracerthumb.jpg" />
-    <Content Include="Content\Artworks\Thumbnails\WE%27RE GETTING THERE_thumb - 3-27-2018.png" />
-    <Content Include="Content\Artworks\Thumbnails\yiff in hell_thumb - 3-28-2018.png" />
-    <Content Include="Content\Artworks\tracer.gif" />
-    <Content Include="Content\Artworks\WE%27RE GETTING THERE - 3-27-2018.gif" />
-    <Content Include="Content\Artworks\yiff in hell - 3-28-2018.png" />
-    <Content Include="Content\cia.jpg" />
-    <Content Include="Content\CMS\bg.jpg" />
-    <Content Include="Content\CMS\bg2.jpg" />
-    <Content Include="Content\CMS\delete.png" />
-    <Content Include="Content\CMS\thumbnail.png" />
-    <Content Include="Content\deviantartIcon.png" />
-    <Content Include="Content\facebookIcon.png" />
-    <Content Include="Content\kannabg.gif" />
-    <Content Include="Content\logo.png" />
-    <Content Include="Content\monsterbg.webm" />
     <TypeScriptCompile Include="Content\Scripts\AdminPanelScripts.ts" />
+    <TypeScriptCompile Include="Content\Scripts\AnimationViewScripts.ts" />
     <TypeScriptCompile Include="Content\Scripts\AnimationsScripts.ts" />
     <TypeScriptCompile Include="Content\Scripts\CMSScripts.ts" />
     <TypeScriptCompile Include="Content\Scripts\Globals.ts" />
     <Content Include="Content\Styles\AboutUsStyles.css" />
     <Content Include="Content\Styles\AdminPanelStyles.css" />
     <Content Include="Content\Styles\AnimationsStyles.css" />
+    <Content Include="Content\Styles\AnimationViewStyles.css" />
     <Content Include="Content\Styles\CMSStyles.css" />
     <Content Include="Content\Styles\GalleryStyles.css" />
     <Content Include="Content\Styles\HomeStyles.css" />
-    <Content Include="Content\twitterIcon.png" />
-    <Content Include="Content\youtubeIcon.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Styles\_LayoutPageBannerStyles.css" />
     <Content Include="Web.config">
@@ -217,6 +190,7 @@
     <Content Include="Views\AboutUs\AboutUs.cshtml" />
     <Content Include="Views\Gallery\Gallery.cshtml" />
     <Content Include="Views\Animations\Animations.cshtml" />
+    <Content Include="Views\Animations\AnimationView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -225,7 +199,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\AboutUs\" />
+    <Folder Include="Content\AdminPanel\" />
     <Folder Include="Content\Animations\Thumbnails\" />
+    <Folder Include="Content\Artworks\Thumbnails\" />
+    <Folder Include="Content\CMS\" />
     <Folder Include="Content\Series\Thumbnails\" />
   </ItemGroup>
   <ItemGroup>
