@@ -1,10 +1,9 @@
 ﻿declare var apiDomain: string;
 
-namespace AdminPanelPage {
 //initialize page
 document.addEventListener( "DOMContentLoaded", function ( event ) {
     fillTable();
-});
+} );
 
 function fillTable() {
     let request = new XMLHttpRequest();
@@ -18,7 +17,7 @@ function fillTable() {
             document.querySelector( "tbody" ).insertAdjacentHTML( "beforeend", `
                 <tr>
                     <td>`+ response[i] + `</td>
-                    <td><button onclick="removeAdmin(this)" value="`+response[i]+`">Remove</button></td>
+                    <td><button onclick="removeAdmin(this)" value="`+ response[i] + `">Remove</button></td>
                 </tr>
             `);
         }
@@ -27,7 +26,7 @@ function fillTable() {
 
 function removeAdmin( sender ) {
     let request = new XMLHttpRequest();
-    request.open( "DELETE", apiDomain + "administrators/" + sender.value);
+    request.open( "DELETE", apiDomain + "administrators/" + sender.value );
     request.send();
 
     //remove row from table
@@ -37,8 +36,8 @@ function removeAdmin( sender ) {
 function addAdmin( form ) {
     let request = new XMLHttpRequest();
     request.open( "POST", apiDomain + "administrators" );
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(`
+    request.setRequestHeader( "Content-Type", "application/json" );
+    request.send( `
         {Admin_Username:"`+ form.newUsername.value + `",
          Admin_Password:"`+ form.newPassword.value + `"}
     `);
@@ -51,6 +50,5 @@ function addAdmin( form ) {
                 <td><button onclick="removeAdmin(this)" value="`+ form.newUsername.value + `">Remove</button></td>
             </tr>
         `);
-    }
     }
 }
