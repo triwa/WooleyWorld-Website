@@ -100,16 +100,19 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
+    align-items:center;
 }
 
 article {
     margin: 2px 2px 0 0;
-    display: flex;
+    display:flex;
+    align-items:center;
     position: relative;
 }
 
 article img {
     max-height: 300px;
+    max-width:100%;
 }
 
 article .title {

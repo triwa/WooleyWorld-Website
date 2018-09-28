@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/_LayoutPageBanner.cshtml";
+}
+
+@section head{
+    <title>@ViewBag.Series_Title</title>
+    <link href="~/Content/Styles/SeriesStyles.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/Globals.js"></script>
+    <script src="~/Content/Scripts/SeriesScripts.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+}
+
+<main>
+    <section id="titleArea">
+        <h1 id="title"></h1>
+        <div id="socialMedia">
+            <img src="~/Content/facebookIcon.png" />
+            <img src="~/Content/twitterIcon.png" />
+        </div>
+    </section>
+
+    <p id="description"></p>
+
+    <section id="animations">
+    </section>
+    <p id="animationDescription"></p>
+
+    <section id="videoContainer">
+        <div id="player"></div>
+        <div id="replayOptions" class="hidden">
+            <h2>Check out our other series:</h2>
+            <div id="suggestedSeries"></div>
+            <button id="replayButton" onclick="replaySeries();">Replay?</button>
+        </div>
+    </section>
+
+    <video src="~/Content/x-memes.webm" autoplay loop muted></video>
+</main>

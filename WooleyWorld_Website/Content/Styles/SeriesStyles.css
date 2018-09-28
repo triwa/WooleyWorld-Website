@@ -13,6 +13,10 @@ main {
     flex: 1;
 }
 
+
+/*
+    Title area
+*/
 #titleArea {
     display: flex;
 }
@@ -20,28 +24,56 @@ main {
 #title {
     text-align: center;
     font-size: 300%;
-}
-
-#titleAndDate {
-    display: flex;
-    flex-flow: column;
-    text-align: center;
     flex: 1;
-}
-
-#socialMedia {
-    justify-content: center;
-    align-self: center;
 }
 
 #socialMedia img {
     height: 30px;
 }
 
-#uploadDate {
-    font-size: 90%;
+
+/*
+    Series Animations
+*/
+#animations {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
+#animations article {
+    margin: 0 10px;
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+}
+
+#animations article img {
+    max-height: 100px;
+}
+
+#animations .title {
+    text-align: center;
+}
+
+#animationDescription {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Transitions */
+#animations article {
+    background-color: transparent;
+    transition: background-color .5s;
+}
+
+#animations article:hover {
+    background-color: rgba(255,255,255,.8);
+}
+
+/*
+    Video player
+*/
 #videoContainer {
     position: relative;
     flex: 1;
@@ -52,6 +84,10 @@ main {
     width: 100%;
     height: 100%;
     margin: auto;
+}
+
+.hidden {
+    display: none !important;
 }
 
 
@@ -70,19 +106,19 @@ h2 {
     justify-content: center;
 }
 
-#suggestedAnimations {
+#suggestedSeries {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
 
-article {
+#replayOptions article {
     position: relative;
     margin: 10px;
 }
 
-article img {
+#replayOptions article img {
     max-height: 150px;
     display: block;
 }
@@ -98,10 +134,11 @@ article img {
     justify-content: center;
 }
 
-article .title {
+#replayOptions .title {
     padding: 5px;
     font-size: inherit;
     font-weight: normal;
+    text-align: center;
 }
 
 #replayButton {
@@ -126,10 +163,6 @@ article .title {
     opacity: 1;
 }
 
-.hidden {
-    display: none !important;
-}
-
 
 /*
     Corrections for mobile
@@ -137,6 +170,14 @@ article .title {
 @media (max-device-width : 480px) {
     main {
         margin: 0;
+    }
+
+    body {
+        height: auto;
+    }
+
+    #videoContainer {
+        height: 300px;
     }
 }
 

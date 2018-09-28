@@ -142,11 +142,13 @@
     <Content Include="Content\Styles\CMSStyles.css" />
     <Content Include="Content\Styles\GalleryStyles.css" />
     <Content Include="Content\Styles\HomeStyles.css" />
+    <Content Include="Content\Styles\SeriesStyles.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Styles\_LayoutPageBannerStyles.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <TypeScriptCompile Include="Content\Scripts\SeriesScripts.ts" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="Controllers\API\ThumbsController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SeriesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,6 +194,7 @@
     <Content Include="Views\Gallery\Gallery.cshtml" />
     <Content Include="Views\Animations\Animations.cshtml" />
     <Content Include="Views\Animations\AnimationView.cshtml" />
+    <Content Include="Views\Series\Series.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
