@@ -40,7 +40,14 @@ namespace WooleyWorld_Website.Controllers.API
                 selectedSeries.Series_Thumbnail,
                 selectedSeries.Series_Description,
                 selectedSeries.Series_Order,
-                animations = selectedSeries.Animation_Series.Select(i => new { i.Anim_ID, i.Animation.Anim_Thumbnail, i.Animation.Anim_Title, i.AS_Order })
+                animations = selectedSeries.Animation_Series.Select(i => new {
+                    i.Anim_ID,
+                    i.Animation.Anim_Thumbnail,
+                    i.Animation.Anim_Title,
+                    i.AS_Order,
+                    i.Animation.Anim_Video,
+                    i.Animation.Anim_Description
+                })
                     .OrderBy(i => i.AS_Order)
             };
 
